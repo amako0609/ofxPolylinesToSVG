@@ -68,19 +68,20 @@ void ofxSVG::load(string svgPath){
 		svgXml.pushTag("switch");
 		pops++;
 	}
-	//if(svgXml.tagExists("g")) {
-	//	svgXml.pushTag("g");
-	//	pops++;
-	//}
 
 	// Read Number of Layers
 	int nLayers = svgXml.getNumTags("g");
 
 	//if(nLayers == 0) { // Only one layer
-	if(nLayers == 1) {
+	if(nLayers == 0 || nLayers == 1) {
 		
 		if(bVerbose) {
 			cout<<"ofxSVG: Loading one layer."<<endl;
+		}
+		
+		if(nLayers == 1) {
+			svgXml.pushTag("g");
+			pops++;
 		}
 		
 		ofxSVGLayer layer;
