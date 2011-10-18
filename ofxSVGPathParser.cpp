@@ -297,7 +297,8 @@ void ofxSVGPathParser::cubicBezRec(float x1, float y1, float x2, float y2, float
 	d = distPtSeg(x1234, y1234, x1,y1, x4,y4);
 	if (level > 0 && d < 1000)//tol*tol)
 	{
-		pathInstance->quadBezierTo( ofPoint(x4, y4), ofPoint(x2, y2), ofPoint(x3, y3) );//svgPathPoint(x1234, y1234);
+		//pathInstance->quadBezierTo( ofPoint(x1, y1), ofPoint(x2, y2), ofPoint(x3, y3) );//svgPathPoint(x1234, y1234);
+		pathInstance->bezierTo( ofPoint(x2, y2), ofPoint(x3, y3), ofPoint(x4, y4) );
 		return;
 	}
 	
