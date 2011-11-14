@@ -40,10 +40,6 @@ class ofxSVGObject {
 public:
     
 	virtual void draw() {}
-    virtual vector<ofPolyline> getOutline(){
-        vector<ofPolyline> outlines;
-        return outlines;
-    }
 	
     int             renderMode;
     int             type;
@@ -261,12 +257,6 @@ public:
 		ofSetColor(strokeColor);
 		path.draw();
 	}
-    
-    vector<ofPolyline> getOutline(){
-        vector<ofPolyline> outlines;
-        outlines.push_back(path);
-        return outlines;
-    }
 	
 };
 
@@ -316,10 +306,6 @@ public:
 		path.setFilled(fill);
 		path.setFillColor(fillColor);
 	}
-    
-    vector<ofPolyline> getOutline(){
-        return path.getOutline();
-    }
 	
 };
 
@@ -470,17 +456,6 @@ public:
 				ofPopMatrix();
 			break;
 		}
-    }
-    
-    vector< vector<ofPolyline> > getOutlines(){
-        vector< vector<ofPolyline> > outlines;
-        for(int i=0; i<objects.size(); i++){
-            vector<ofPolyline> o = objects[i]->getOutline();
-            if(o.size() > 0){
-                outlines.push_back(o);
-            }
-        }
-        return outlines;
     }
 
     string                  name;
