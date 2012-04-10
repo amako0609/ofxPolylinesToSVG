@@ -50,8 +50,21 @@ public:
 			j++;
 		}
 	}
+
+	static void stringFromMatrix(string& smat, ofxMatrix3x3 mat) {
+   		int i = 0;
+   		stringstream s;
+	    s << "matrix(";
+	    while(i < 9) {   
+	    	s << mat[i] << " ";
+	    	i++;
+	    }
+	    s << ")";
+	    //  int length = s.str().length();
+	    smat.insert(0, s.str());
+	}
 	
-	void matrixFromNum(float a, float b, float c, float d, float e, float f, ofMatrix3x3 &mat) {
+	static void matrixFromNum(float a, float b, float c, float d, float e, float f, ofMatrix3x3 &mat) {
 		mat[0] = a;
 		mat[3] = b;
 		mat[1] = c;

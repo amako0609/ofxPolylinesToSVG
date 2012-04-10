@@ -152,8 +152,8 @@ class ofxSVG{
 		map<string, string>		currentAttributes;
 		vector<ofMatrix3x3>	matrices; 
 		string createAttribute(string element, ...);
-		void matrixFromString(string smat, ofMatrix3x3 mat);
-		void stringFromMatrix(string* smat, ofMatrix3x3 mat);
+		//void matrixFromString(string smat, ofMatrix3x3 mat);
+		//void stringFromMatrix(string* smat, ofMatrix3x3 mat);
 	
 		//  create root
         //----------------------------------
