@@ -51,7 +51,7 @@ public:
 		}
 	}
 
-	static void stringFromMatrix(string& smat, ofxMatrix3x3 mat) {
+	static void stringFromMatrix(string& smat, ofMatrix3x3 mat) {
    		int i = 0;
    		stringstream s;
 	    s << "matrix(";

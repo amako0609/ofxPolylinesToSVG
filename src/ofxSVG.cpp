@@ -1056,7 +1056,7 @@ void ofxSVG::translate(float tx, float ty) {
 		m.c += tx;
 		m.f += ty;
 		string s;
-		ofxSVGUtils::stringFromMatrix(&s, matrices[matrices.size() - 1]);
+		ofxSVGUtils::stringFromMatrix(s, matrices[matrices.size() - 1]);
 		currentAttributes["matrix"] = s;
 	}
 }
@@ -1093,7 +1093,7 @@ void ofxSVG::popMatrix() {
 			currentAttributes["matrix"] = "";
 		} else {
 			string s;
-			ofxSVGUtils::stringFromMatrix(&s, matrices[matrices.size() - 1]);
+			ofxSVGUtils::stringFromMatrix(s, matrices[matrices.size() - 1]);
 			currentAttributes["matrix"] = s;
 
 		}
