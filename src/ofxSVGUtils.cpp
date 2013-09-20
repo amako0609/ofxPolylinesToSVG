@@ -129,7 +129,7 @@ void ofxSVGUtils::parseFunction(transformInfo &transformation, errs err)
 		if (d_count != 6) return;
 
 		// this might be wrong
-		transformation.rotate = atan2(d[3],d[0]);
+		transformation.rotate = ofVec2f(atan2(d[3],d[0])); //oriol
 		transformation.trans = ofVec2f(d[4], d[5]);
 		transformation.scale = ofVec2f(d[1], d[3]);
 		

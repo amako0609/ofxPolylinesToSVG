@@ -722,7 +722,7 @@ bool ofxSVG::isInsidePolygon(ofxSVGPath *path, ofPoint p)
 	/* Based on code from:
 	   http://local.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/
 	   adapted to work with openframeworks/ofxSVG by Noto Yota multimedialab, 2010 */
-	
+	/*	
 	int counter = 0;
 	int i,N;
 	double xinters;
@@ -770,6 +770,7 @@ bool ofxSVG::isInsidePolygon(ofxSVGPath *path, ofPoint p)
 		return(false);
 	else
 	return(true);
+	*/
 }
 
 void ofxSVG::parsePath() {
@@ -933,14 +934,17 @@ void ofxSVG::beginPolygon(){
 	currentAttributes["drawingpolygon"] = "true";
 	
 	saveXml.pushTag("svg", 0);
+	int numPolygons = saveXml.getNumTags("polygon");
 	saveXml.addTag("polygon");
-	saveXml.setAttribute("polygon", "fill", currentAttributes["color"], 0);
-	saveXml.setAttribute("polygon", "stroke", currentAttributes["stroke"], 0);
-	saveXml.setAttribute("polygon", "stroke-width", currentAttributes["strokewidth"], 0);
+	saveXml.setAttribute("polygon", "fill", currentAttributes["color"], numPolygons);
+	saveXml.setAttribute("polygon", "stroke", currentAttributes["stroke"], numPolygons);
+	saveXml.setAttribute("polygon", "stroke-width", currentAttributes["strokewidth"], numPolygons);
+
 
 }
 void ofxSVG::endPolygon(){
 	currentAttributes["drawingpolygon"] = "false";
+	saveXml.popTag();
 }
 
 void ofxSVG::beginPath() {
@@ -982,12 +986,13 @@ void ofxSVG::vertex(float x, float y){
 	}
 
 	if(currentAttributes["drawingpolygon"] != "" && currentAttributes["drawingpolygon"] != "false") {
-		saveXml.pushTag("svg", 0);
-		currentPath = saveXml.getAttribute("polygon", "points", "", 0);
+		//saveXml.pushTag("svg", 0);
+		int numPolygons = saveXml.getNumTags("polygon");
+		currentPath = saveXml.getAttribute("polygon", "points", "", numPolygons-1);
 		stringstream s;
 		s << x << "," << y << " ";
-		currentPath+=s.str();
-		saveXml.setAttribute("polygon", "points", currentPath, 0);
+		currentPath += s.str();
+		saveXml.setAttribute("polygon", "points", currentPath, numPolygons-1);
 	}
 }
 
