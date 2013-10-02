@@ -917,14 +917,16 @@ void ofxSVG::circle(float x, float y, float r) {
 
 	// need a way to get the current color, stroke settings...hmm.
 	// probably something like: current_vals;
+
 	saveXml.pushTag("svg", 0);
+	int numC = saveXml.getNumTags("circle");
 	saveXml.addTag("circle");
-	saveXml.setAttribute("circle", "r", r/2.0, 0);
-	saveXml.setAttribute("circle", "cx", x, 0);
-	saveXml.setAttribute("circle", "cy", y, 0);
-	saveXml.setAttribute("circle", "fill", currentAttributes["color"], 0);
-	saveXml.setAttribute("circle", "stroke", currentAttributes["stroke"], 0);
-	saveXml.setAttribute("circle", "stroke-width", currentAttributes["strokewidth"], 0);
+	saveXml.setAttribute("circle", "r", r/2.0, numC);
+	saveXml.setAttribute("circle", "cx", x, numC);
+	saveXml.setAttribute("circle", "cy", y, numC);
+	saveXml.setAttribute("circle", "fill", currentAttributes["color"], numC);
+	saveXml.setAttribute("circle", "stroke", currentAttributes["stroke"], numC);
+	saveXml.setAttribute("circle", "stroke-width", currentAttributes["strokewidth"], numC);
 	saveXml.popTag();
 }
 
