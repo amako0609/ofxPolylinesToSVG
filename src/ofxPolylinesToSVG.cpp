@@ -12,15 +12,15 @@ void ofxPolylinesToSVG::addPolyline(ofPolyline poly, ofColor color) {
         
     noFill();
     stroke(hexColor, 3);
-    
-    beginPath();
     std::vector<ofDefaultVec3> vertices = poly.getVertices();
     
-    for(size_t j = 0; j<vertices.size(); j++) {
-        vertex(vertices[j].x, vertices[j].y);
+    if (vertices.size()>0) {
+        beginPath();
+        for(size_t j = 0; j<vertices.size(); j++) {
+            vertex(vertices[j].x, vertices[j].y);
+        }
+        endPath();
     }
-    
-    endPath();
 }
 
 void ofxPolylinesToSVG::createRootSvg() {
@@ -28,7 +28,10 @@ void ofxPolylinesToSVG::createRootSvg() {
 	saveXml.addAttribute("svg", "xmlns", "http://www.w3.org/2000/svg", 0);
 	saveXml.addAttribute("svg", "xmlns:xlink", "http://www.w3.org/1999/xlink", 0);
     saveXml.addAttribute("svg", "version", "1.1", 0);
-    saveXml.addAttribute("svg", "version", "1.1", 0);
+    saveXml.addAttribute("svg", "x", "0", 0);
+    saveXml.addAttribute("svg", "y", "0", 0);
+    saveXml.addAttribute("svg", "width", "800px", 0);
+    saveXml.addAttribute("svg", "height", "800px", 0);
     saveXml.pushTag("svg", 0);
 }
 
