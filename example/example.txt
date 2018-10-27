@@ -1,12 +1,13 @@
-	cout << "render SVG!" << endl;
-	svg.addLayer("layer1");
-	svg.stroke("#000000", 0);
-	svg.fill("#000000");
-	svg.beginPolygon();
-	svg.vertex(v1.x, v1.y);
-	svg.vertex(v2.x, v2.y);
-	svg.vertex(v3.x, v3.y);
-	svg.vertex(v4.x, v4.y);
-	svg.endPolygon();
-	svg.saveToFile("out.svg");
+//Saving a vector of ofPolyline and ofColor:
+//std::vector<tuple<ofPolyline,ofColor>> polyLines;
 
+ofxPolylinesToSVG svg = ofxPolylinesToSVG();
+    
+for(size_t i = 0; i<polyLines.size(); i++) {
+    ofPolyline &poly = get<0>(polyLines[i]);
+    ofColor color = get<1>(polyLines[i]);
+
+    svg.addPolyline(poly, color);
+}
+    
+svg.saveToFile("testeToFile.svg");
