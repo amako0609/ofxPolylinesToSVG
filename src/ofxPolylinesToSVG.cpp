@@ -1,7 +1,7 @@
 #include "ofxPolylinesToSVG.h"
 
-ofxPolylinesToSVG::ofxPolylinesToSVG() {
-    addLayer("rootLayer");
+ofxPolylinesToSVG::ofxPolylinesToSVG(float translate_width, float translate_height) {
+    addLayer("rootLayer", translate_width, translate_height);
 }
 
 ofxPolylinesToSVG::~ofxPolylinesToSVG() {
@@ -19,13 +19,14 @@ void ofxPolylinesToSVG::createRootSvg() {
     saveXml.pushTag("svg", 0);
 }
 
-void ofxPolylinesToSVG::addLayer(string layerName){
+void ofxPolylinesToSVG::addLayer(string layerName, float translate_width, float translate_height){
     if(saveXml.getValue("svg", "", 0) == "") {
         createRootSvg();
     }
     
     saveXml.addTag("g");
     saveXml.addAttribute("g", "id", layerName, 0);
+    saveXml.addAttribute("g", "transform", "translate("+std::to_string(translate_width)+", "+std::to_string(translate_height)+")", 0);
     saveXml.pushTag("g", 0);
     currentSaveNode = 0;
 }
