@@ -8,7 +8,7 @@
 class ofxPolylinesToSVG{
     
 public:
-    ofxPolylinesToSVG();
+    ofxPolylinesToSVG(float translate_width, float translate_height);
     ~ofxPolylinesToSVG();
 
     void addPolyline(ofPolyline poly, ofColor color);
@@ -27,7 +27,7 @@ private:
     //  create root
     //----------------------------------
     void createRootSvg();
-    void addLayer(string layerName);
+    void addLayer(string layerName, float width, float height);
     
     void beginPath();
     void vertex(float x, float y);
