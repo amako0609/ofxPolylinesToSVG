@@ -1,13 +1,14 @@
 //Saving a vector of ofPolyline and ofColor:
 //std::vector<tuple<ofPolyline,ofColor>> polyLines;
 
-ofxPolylinesToSVG svg = ofxPolylinesToSVG();
+ofxPolylinesToSVG svg = ofxPolylinesToSVG(100, 100);
     
 for(size_t i = 0; i<polyLines.size(); i++) {
     ofPolyline &poly = get<0>(polyLines[i]);
     ofColor color = get<1>(polyLines[i]);
 
     svg.addPolyline(poly, color);
+//  svg.addCircle(poly, color);
 }
     
 svg.saveToFile("testeToFile.svg");
