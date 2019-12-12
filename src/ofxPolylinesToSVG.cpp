@@ -7,6 +7,33 @@ ofxPolylinesToSVG::ofxPolylinesToSVG() {
 ofxPolylinesToSVG::~ofxPolylinesToSVG() {
 }
 
+void ofxPolylinesToSVG::createRootSvg() {
+    saveXml.addTag("svg");
+    saveXml.addAttribute("svg", "xmlns", "http://www.w3.org/2000/svg", 0);
+    saveXml.addAttribute("svg", "xmlns:xlink", "http://www.w3.org/1999/xlink", 0);
+    saveXml.addAttribute("svg", "version", "1.1", 0);
+    saveXml.addAttribute("svg", "x", "0", 0);
+    saveXml.addAttribute("svg", "y", "0", 0);
+    saveXml.addAttribute("svg", "width", "800px", 0);
+    saveXml.addAttribute("svg", "height", "800px", 0);
+    saveXml.pushTag("svg", 0);
+}
+
+void ofxPolylinesToSVG::addLayer(string layerName){
+    if(saveXml.getValue("svg", "", 0) == "") {
+        createRootSvg();
+    }
+    
+    saveXml.addTag("g");
+    saveXml.addAttribute("g", "id", layerName, 0);
+    saveXml.pushTag("g", 0);
+    currentSaveNode = 0;
+}
+
+void ofxPolylinesToSVG::saveToFile(string filename) {
+    saveXml.saveFile(filename);
+}
+
 void ofxPolylinesToSVG::addPolyline(ofPolyline poly, ofColor color) {
     string hexColor = "#" + ofToHex(color.getHex()).erase(0, 2);
         
@@ -23,31 +50,15 @@ void ofxPolylinesToSVG::addPolyline(ofPolyline poly, ofColor color) {
     }
 }
 
-void ofxPolylinesToSVG::createRootSvg() {
-	saveXml.addTag("svg");
-	saveXml.addAttribute("svg", "xmlns", "http://www.w3.org/2000/svg", 0);
-	saveXml.addAttribute("svg", "xmlns:xlink", "http://www.w3.org/1999/xlink", 0);
-    saveXml.addAttribute("svg", "version", "1.1", 0);
-    saveXml.addAttribute("svg", "x", "0", 0);
-    saveXml.addAttribute("svg", "y", "0", 0);
-    saveXml.addAttribute("svg", "width", "800px", 0);
-    saveXml.addAttribute("svg", "height", "800px", 0);
-    saveXml.pushTag("svg", 0);
-}
-
-void ofxPolylinesToSVG::addLayer(string layerName){
-	if(saveXml.getValue("svg", "", 0) == "") {
-		createRootSvg();
-	}
-    
-    saveXml.addTag("g");
-    saveXml.addAttribute("g", "id", layerName, 0);
-	saveXml.pushTag("g", 0);
-    currentSaveNode = 0;
-}
-
-void ofxPolylinesToSVG::saveToFile(string filename) {
-	saveXml.saveFile(filename);
+void ofxPolylinesToSVG::addCircle(ofPolyline poly, ofColor color) {
+    string hexColor = "#" + ofToHex(color.getHex()).erase(0, 2);
+    stroke(hexColor, 1);
+    std::vector<ofDefaultVec3> vertices = poly.getVertices();
+    if (vertices.size()>0) {
+        for(size_t j = 0; j<vertices.size(); j++) {
+            circle(vertices[j].x, vertices[j].y, 3);
+        }
+    }
 }
 
 void ofxPolylinesToSVG::beginPath() {
@@ -98,6 +109,17 @@ void ofxPolylinesToSVG::vertex(float x, float y){
 		currentPath += s.str();
 		saveXml.setAttribute("polygon", "points", currentPath, numPolygons-1);
 	}
+}
+
+void ofxPolylinesToSVG::circle(float x, float y, float radius){
+    saveXml.addTag("circle");
+    saveXml.setAttribute("circle", "cx", x, currentSaveNode);
+    saveXml.setAttribute("circle", "cy", y, currentSaveNode);
+    saveXml.setAttribute("circle", "r", radius, currentSaveNode);
+    saveXml.setAttribute("circle", "fill", currentAttributes["color"], currentSaveNode);
+    saveXml.setAttribute("circle", "stroke", currentAttributes["stroke"], currentSaveNode);
+    saveXml.setAttribute("circle", "stroke-width", currentAttributes["strokewidth"], currentSaveNode);
+    currentSaveNode++;
 }
 
 void ofxPolylinesToSVG::stroke(string colorHex, int weight) {
