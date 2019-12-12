@@ -12,6 +12,7 @@ public:
     ~ofxPolylinesToSVG();
 
     void addPolyline(ofPolyline poly, ofColor color);
+    void addCircle(ofPolyline poly, ofColor color);
     
     // Save to svg
     //----------------------------------
@@ -28,13 +29,13 @@ private:
     void createRootSvg();
     void addLayer(string layerName);
     
-    void stroke(string colorHex, int weight);
-    void fill(string colorHex);
-    void noStroke();
-    void noFill();
-    
     void beginPath();
     void vertex(float x, float y);
     void endPath();
+    void circle(float x, float y,float radius);
 
+    void stroke(string colorHex, int weight);
+    void fill(string colorHex);
+    void noFill();
+    void noStroke();
 };
